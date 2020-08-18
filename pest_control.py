@@ -9,6 +9,23 @@ import argparse
 import sys
 
 
+DEBUG = False
+
+
+def printd(content):
+    '''
+    Prints DEBUG messages with given content.
+
+    Args:
+        content: str   string to print as DEBUG message
+
+    Returns:
+        None
+    '''
+    if DEBUG:
+        print(f'---> \033[1;33;40mDEBUG\033[m - {content}')
+
+
 def init_argparse():
     '''
     Initialize the argument parsing.
@@ -26,6 +43,12 @@ def init_argparse():
         '-v', '--version',
         action='version',
         version=f'{parser.prog} version 0.1'
+    )
+
+    parser.add_argument(
+        '-d', '--debug',
+        action='store_true',
+        help='Print debug messages.'
     )
 
     parser.add_argument(
@@ -54,6 +77,7 @@ def read_file(file):
     '''
     file_content = []
 
+    printd(f'Reading input file: {file}')
     with open(file) as f:
         for line in f:
             file_content.append(line.rstrip())
@@ -65,14 +89,22 @@ def main():
     '''
     Main function.
     '''
+    global DEBUG
+
     # Parse the arguments
     parser = init_argparse()
     args = parser.parse_args()
 
+    # Set DEBUG variable
+    if args.debug:
+        DEBUG = True
+
     # Read the input files
     try:
         bug = read_file(args.BUG_FILE[0])
+        printd(f'Bug type loaded.')
         landscape = read_file(args.FILE[0])
+        printd(f'Landscape loaded.')
     except (FileNotFoundError, IsADirectoryError, PermissionError) as err:
         print(f'{parser.prog}: {err.filename} - {err.strerror}')
         return sys.exit(err.errno)
