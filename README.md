@@ -21,7 +21,7 @@ provide the path of the file containing the "bug" pattern (BUG_FILE) and the
 path of the file to be analysed (FILE) the the tool.
 
 ```
-$ python3 pest_control.py BUG_FILE FILE
+$ python3 src/pest_control.py BUG_FILE FILE
 ```
 
 The output will be presented in the STDOUT as a string informing how many of
@@ -29,14 +29,14 @@ the patterns from the first input argument were found in the second input
 argument.
 
 ```
-$ python3 pest_control.py samples/bug.txt samples/landscape.txt
+$ python3 src/pest_control.py samples/bug.txt samples/landscape.txt
 Found 3 bugs in samples/landscape.txt
 ```
 
 To see all the options available to interact with the tool, execute:
 
 ```
-$ python3 pest_control.py -h
+$ python3 src/pest_control.py -h
 usage: pest_control.py [OPTIONS]... BUG_FILE FILE
 
 Search a text file for bugs and print the number of occurrences
@@ -51,3 +51,19 @@ optional arguments:
   -d, --debug    Print debug messages.
 ```
 
+## Unittests
+
+Tests to stress the search_by_bugs() methos with different cases of landscapes
+were added to this solution:
+
+* test case 01: test bug.txt and landscape.txt provided by Trayport
+* test case 02: test bug.txt and landscape_02.txt with bugs in the horizontal line
+* test case 03: test bug.txt and landscape_03.txt with bugs in a polluted environment
+* test case 04: test bug.txt and landscape_04.txt with bugs in the vertical
+* test case 05: test bug.txt and landscape_05.txt with mixed bugs
+
+To execute the test cases, run:
+
+```
+$ python3 -m unittest tests/test_pest_control.py
+```
