@@ -24,6 +24,15 @@ path of the file to be analysed (FILE) the the tool.
 $ python3 pest_control.py BUG_FILE FILE
 ```
 
+The output will be presented in the STDOUT as a string informing how many of
+the patterns from the first input argument were found in the second input
+argument.
+
+```
+$ python3 pest_control.py samples/bug.txt samples/landscape.txt
+Found 3 bugs in samples/landscape.txt
+```
+
 To see all the options available to interact with the tool, execute:
 
 ```
