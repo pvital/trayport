@@ -13,7 +13,20 @@ of this file is a lot simpler than the file that we will be testing the
 completed program. Each occurrence of the character pattern as specified in 
 bug.txt is counted, except for the whitespaces contained therein.
 
-## How to use it.
+## Requirements
+
+The solution uses an external Python module that is necessary to be installed
+before it's execution. Follow the next exection steps to setup the environment:
+
+```
+$ python3 -m venv .env
+$ source .env/bin/activate
+(.env) $ pip3 install -r requirements.txt
+```
+
+The following sections consider you still are in the virtual environment (venv).
+
+## How to use it
 
 The solution is made as a command line interpreter (CLI) application that 
 parse arguments to know the necessary inputs. To execute the application,
