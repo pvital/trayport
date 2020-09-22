@@ -10,30 +10,32 @@ import sys
 
 import Levenshtein
 
+from typing import List
+
 
 DEBUG = False
 
 
-def printd(content):
+def printd(content: str) -> None:
     '''
     Prints DEBUG messages with given content.
 
     Args:
-        content: str   string to print as DEBUG message
+        content (str): content to print as DEBUG message.
 
     Returns:
-        None
+        None.
     '''
     if DEBUG:
         print(f'---> \033[1;33;40mDEBUG\033[m - {content}')
 
 
-def init_argparse():
+def init_argparse() -> argparse.ArgumentParser:
     '''
     Initialize the argument parsing.
 
     Returns:
-        argparse.ArgumentParser
+        argparse.ArgumentParser.
     '''
     parser = argparse.ArgumentParser(
         prog='pest_control.py',
@@ -67,15 +69,15 @@ def init_argparse():
     return parser
 
 
-def read_file(file):
+def read_file(file: str) -> List[str]:
     '''
     Read a give file and returns a list with it's lines content.
 
     Args:
-        file: str   path of the file to be read
+        file (str): path of the file to be read.
 
     Returns:
-        list containing the lines of file
+        list containing the lines of file.
     '''
     file_content = []
 
@@ -87,7 +89,7 @@ def read_file(file):
     return file_content
 
 
-def find_bug(bug, landscape, start = 0):
+def find_bug(bug: str, landscape: str, start: int = 0) -> int:
     '''
     Return the lowest index in the landscape string where bug string is found 
     within the slice landscape[start:]. 
@@ -96,12 +98,12 @@ def find_bug(bug, landscape, start = 0):
     not considering them on the landscape.
 
     Args:
-        bug: string
-        landscape: string
-        start: int
+        bug (str): pattern to search for.
+        landscape (str): string to be searched.
+        start (int): position to start search in landscape.
     
     Returns:
-        int
+        Position of lowest index of pattern in landscape. Otherwise -1.
     '''
     pos = -1
     # Having spaces on bug (string to look for), we have to get the position in
@@ -123,17 +125,17 @@ def find_bug(bug, landscape, start = 0):
     return pos
 
 
-def count_bug(bug, line, start = 0):
+def count_bug(bug: str, line: str, start: int = 0) -> int:
     '''
     Return the number of occurrences of bug string in the line string.
 
     Args:
-        bug: string     string to search for.
-        line: string    string line to search for the bug.
-        start: int      position of start slice.
+        bug (str): pattern to search for.
+        line (str): string to be searched.
+        start (int): position to start search in line.
     
     Returns:
-        int with the number of occurences found.
+        Number of occurences of bug pattern in line string. Otherwise 0.
     '''
     count = 0
 
@@ -147,16 +149,17 @@ def count_bug(bug, line, start = 0):
 
     return count
 
-def search_by_bugs(bug, landscape):
+
+def search_by_bugs(bug: List[str], landscape: List[str]) -> int:
     '''
     Search a text file content by bugs.
 
     Args:
-        bug: list            pattern of the bug to be searched
-        landscape: list     text content to be searched
+        bug (list): pattern of the bug to be searched
+        landscape (list): text content to be searched
 
     Returns:
-        int     number of bugs pattern found on text content.
+        Number of bugs pattern found on text content. Otherwise 0.
     '''
     printd(f'Searching by bugs...')
     bugs_found = 0
@@ -208,7 +211,7 @@ def search_by_bugs(bug, landscape):
     return bugs_found
 
 
-def main():
+def main() -> None:
     '''
     Main function.
     '''
