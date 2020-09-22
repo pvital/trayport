@@ -59,6 +59,14 @@ class TestPestControl(unittest.TestCase):
         result = pc.search_by_bugs(self.bug_content, self.landscape_content)
         self.assertEqual(result, 7)
 
+    def test_search_by_bugs_06(self):
+        '''
+        Test search_by_bugs() method, using landscape with camouflaged bugs
+        '''
+        self.landscape_content = pc.read_file('samples/landscape_06.txt')
+        result = pc.search_by_bugs(self.bug_content, self.landscape_content)
+        self.assertEqual(result, 3)
+
 
 if __name__ == '__main__':
     unittest.main()
